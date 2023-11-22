@@ -52,7 +52,8 @@ resource "ibm_resource_instance" "secrets_manager" {
 # Configure instance with IAM engine
 module "iam_secrets_engine" {
   count                = var.existing_sm_instance_guid == null ? 1 : 0
-  source               = "git::https://github.ibm.com/GoldenEye/secrets-manager-iam-engine-module.git?ref=2.1.3"
+  source               = "terraform-ibm-modules/secrets-manager-iam-engine/ibm"
+  version              = "1.0.2"
   region               = var.region
   secrets_manager_guid = ibm_resource_instance.secrets_manager[0].guid
   iam_engine_name      = "generated_iam_engine"
