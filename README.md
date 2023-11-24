@@ -6,6 +6,12 @@
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
+Use this module to creates a service ID API key (associated with an existing service ID) and stores it as a dynamic secret (existing or new) in an existing IBM Secrets Manager instance.
+
+Dynamic secrets, unlike (arbitrary) static secrets, create IAM service ID API key credentials that are automatically rotated by Secrets Manager engine every time the secret payload is read or accessed when the lease duration is met. The credential changes are controlled by two input variables that you specify when you create the secret: `sm_iam_secret_ttl` (sometimes referred to as _time to live_, _TTL_, or _lease duration_) and `sm_iam_secret_api_key_persistence` (sometimes referred to as _reuse IAM credentials_).
+
+In addition to rotation when the TTL or lease expires, you can create a rotation policy to trigger rotation before the leasing time expires. Triggering rotation before expiration provides transition time between the older and the new credentials. You enable this setting by setting `sm_iam_secret_auto_rotation` to `true` and configuring the related rotation variables `sm_iam_secret_auto_rotation_unit` and `sm_iam_secret_auto_rotation_interval`.
+
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
 * [terraform-ibm-iam-serviceid-apikey-secrets-manager-module](#terraform-ibm-iam-serviceid-apikey-secrets-manager-module)
@@ -15,13 +21,13 @@
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
-This module creates a service ID API key (associated with an existing service ID) and stores it as a dynamic secret (existing or new) in an existing Secrets Manager instance.
+## terraform-ibm-iam-serviceid-apikey-secrets-manager
 
 ### Usage
 
 ```hcl
 provider "ibm" {
-  ibmcloud_api_key     = "X"
+  ibmcloud_api_key     = "XXXXXXXXXXXXXX"
   region               = "us-south"
 }
 module "dynamic_serviceid_apikey1" {
