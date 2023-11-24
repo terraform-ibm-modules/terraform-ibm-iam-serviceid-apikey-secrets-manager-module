@@ -1,4 +1,4 @@
-## Complete with rotation policy example
+# Complete with rotation policy example
 
 End to end example with the complete Secrets-Manager objects lifecycle including the dynamic IAM secret and rotation policy.
 

@@ -1,7 +1,7 @@
-## IAM Service ID API key Secrets Manager module
+# IAM Service ID API key Secrets Manager
 
 [![Graduated (Supported)](https://img.shields.io/badge/Status-Graduated%20(Supported)-brightgreen)](https://terraform-ibm-modules.github.io/documentation/#/badge-status)
-[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-iam-serviceid-apikey-secrets-manager-module?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-iam-serviceid-apikey-secrets-manager-module/releases/latest)
+[![latest release](https://img.shields.io/github/v/release/terraform-ibm-modules/terraform-ibm-iam-serviceid-apikey-secrets-manager?logo=GitHub&sort=semver)](https://github.com/terraform-ibm-modules/terraform-ibm-iam-serviceid-apikey-secrets-manager/releases/latest)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
@@ -16,8 +16,8 @@ In addition to rotation when the TTL or lease expires, you can create a rotation
 ## Overview
 * [terraform-ibm-iam-serviceid-apikey-secrets-manager-module](#terraform-ibm-iam-serviceid-apikey-secrets-manager-module)
 * [Examples](./examples)
-    * [#Complete with no rotation example](./examples/complete-no-rotation-policy)
-    * [#Complete with rotation policy example](./examples/complete-rotation-policy)
+    * [Complete with no rotation example](./examples/complete-no-rotation-policy)
+    * [Complete with rotation policy example](./examples/complete-rotation-policy)
 * [Contributing](#contributing)
 <!-- END OVERVIEW HOOK -->
 
@@ -31,15 +31,15 @@ provider "ibm" {
   region               = "us-south"
 }
 module "dynamic_serviceid_apikey1" {
-  source                               = "terraform-ibm-modules/terraform-ibm-iam-serviceid-apikey-secrets-manager-module/ibm"
+  source                               = "terraform-ibm-modules/iam-serviceid-apikey-secrets-manager/ibm"
   version                              = "X.X.X"  # Replace "X.X.X" with a release version to lock into a specific release
   resource_group_id                    = "xxXXxxXXxXxXXXXxxXxxxXXXXxXXXXX"
   region                               = "us-south"
-  sm_iam_secret_name                   = var.sm_iam_secret_name
+  sm_iam_secret_name                   = "example-arbitrary-secret"
   sm_iam_secret_description            = "Example of dynamic IAM secret"
-  secrets_manager_guid                 = var.secrets_manager_guid
-  serviceid_id                         = var.service_id
-  secret_group_id                      = var.secret_group_id
+  secrets_manager_guid                 = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+  serviceid_id                         = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+  secret_group_id                      = "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 }
 ```
 
