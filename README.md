@@ -14,7 +14,7 @@ In addition to rotation when the TTL or lease expires, you can create a rotation
 
 <!-- BEGIN OVERVIEW HOOK -->
 ## Overview
-* [terraform-ibm-iam-serviceid-apikey-secrets-manager-module](#terraform-ibm-iam-serviceid-apikey-secrets-manager-module)
+* [terraform-ibm-iam-serviceid-apikey-secrets-manager](#terraform-ibm-iam-serviceid-apikey-secrets-manager)
 * [Examples](./examples)
     * [Complete with no rotation example](./examples/complete-no-rotation-policy)
     * [Complete with rotation policy example](./examples/complete-rotation-policy)
