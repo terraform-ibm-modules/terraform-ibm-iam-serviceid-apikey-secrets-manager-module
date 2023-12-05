@@ -7,6 +7,7 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 Use this module to create a service ID API key (associated with an existing service ID) and stores it as a dynamic secret (existing or new) in an existing IBM Secrets Manager instance.
+Use this module to creates a services ID API key (associated with an existing service ID) and stores it as a dynamic secret (existing or new) in an existing IBM Secrets Manager instance.
 
 Dynamic secrets, unlike (arbitrary) static secrets, create IAM service ID API key credentials that are automatically rotated by Secrets Manager engine every time the secret payload is read or accessed when the lease duration is met. The credential changes are controlled by two input variables that you specify when you create the secret: `sm_iam_secret_ttl` (sometimes referred to as _time to live_, _TTL_, or _lease duration_) and `sm_iam_secret_api_key_persistence` (sometimes referred to as _reuse IAM credentials_).
 
