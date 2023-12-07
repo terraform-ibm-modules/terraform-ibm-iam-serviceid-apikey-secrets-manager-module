@@ -43,20 +43,25 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestRunDefaultExample(t *testing.T) {
-	t.Parallel()
-
+func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "iam-svcid-apikey-sm",
-		ResourceGroup: resourceGroup,
+		Testing:            t,
+		TerraformDir:       defaultExampleTerraformDir,
+		Prefix:             prefix,
+		ResourceGroup:      resourceGroup,
+		BestRegionYAMLPath: "../common-dev-assets/common-go-assets/cloudinfo-region-secmgr-prefs.yaml",
 		TerraformVars: map[string]interface{}{
 			"existing_sm_instance_guid":   smGuid,
 			"existing_sm_instance_region": smRegion,
 		},
 	})
+	return options
+}
 
+func TestRunDefaultExample(t *testing.T) {
+	t.Parallel()
+
+	options := setupOptions(t, "iam-svcid-apikey-sm")
 	output, err := options.RunTestConsistency()
 	assert.Nil(t, err, "This should not have errored")
 	assert.NotNil(t, output, "Expected some output")
@@ -65,16 +70,7 @@ func TestRunDefaultExample(t *testing.T) {
 func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
-	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
-		Testing:       t,
-		TerraformDir:  defaultExampleTerraformDir,
-		Prefix:        "iam-svcid-apikey-sm-upg",
-		ResourceGroup: resourceGroup,
-		TerraformVars: map[string]interface{}{
-			"existing_sm_instance_guid":   smGuid,
-			"existing_sm_instance_region": smRegion,
-		},
-	})
+	options := setupOptions(t, "iam-svcid-apikey-sm-upg")
 
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
