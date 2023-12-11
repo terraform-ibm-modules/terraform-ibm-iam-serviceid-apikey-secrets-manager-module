@@ -22,7 +22,7 @@ repository:
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  description: "This module creates a service ID API key (associated with an existing service ID) and stores it as a dynamic secret (existing or new) in an existing Secrets Manager instance."
+  description: "This module creates a service ID API key (associated with an existing service ID) and stores it as a dynamic secret in an existing Secrets Manager instance."
 
   # Use a comma-separated list of topics to set on the repo.
-  topics: core-team, terraform, ibm-cloud, terraform-module, Secrets Manager, supported, graduated
+  topics: core-team, terraform, ibm-cloud, terraform-module, serviceid-apikey, serviceid-apikey-secrets-manager, supported, iam, graduated
