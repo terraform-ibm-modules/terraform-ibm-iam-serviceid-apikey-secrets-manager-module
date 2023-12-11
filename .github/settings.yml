@@ -4,7 +4,7 @@
 # When you have installed the GitHub App "repo-settings" in this repository,
 # any change of this settings.yml file is detected by the GitHub App and
 # the settings of this repository are updated immediately.
-#
+
 _extends: repo-settings:.github/common-settings-v2.yml
 
 # repo-specific settings
@@ -15,14 +15,14 @@ repository:
   # By changing this field, you rename the repository.
 
   # Uncomment this name property and set the name to the current repo name.
-  # name: ""
+  name: "terraform-ibm-iam-serviceid-apikey-secrets-manager"
 
   # The description is displayed under the repository name on the
   # organization page and in the 'About' section of the repository.
 
   # Uncomment this description property
   # and update the description to the current repo description.
-  # description: ""
+  description: "This module creates a service ID API key (associated with an existing service ID) and stores it as a dynamic secret in an existing Secrets Manager instance."
 
   # Use a comma-separated list of topics to set on the repo.
-  topics: terraform, ibm-cloud, terraform-module
+  topics: core-team, terraform, ibm-cloud, terraform-module, serviceid-apikey, serviceid-apikey-secrets-manager, supported, iam, graduated
