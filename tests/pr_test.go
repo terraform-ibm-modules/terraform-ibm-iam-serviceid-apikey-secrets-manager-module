@@ -71,7 +71,6 @@ func TestRunUpgradeExample(t *testing.T) {
 	t.Parallel()
 
 	options := setupOptions(t, "iam-svcid-apikey-sm-upg")
-
 	output, err := options.RunTestUpgrade()
 	if !options.UpgradeTestSkipped {
 		assert.Nil(t, err, "This should not have errored")
