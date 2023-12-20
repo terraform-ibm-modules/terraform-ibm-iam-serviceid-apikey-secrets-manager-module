@@ -44,7 +44,7 @@ module "dynamic_serviceid_apikey1" {
 }
 ```
 
-## Required IAM access policies
+### Required IAM access policies
 
 You need the following permissions to run this module.
 - Account Management
