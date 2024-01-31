@@ -12,7 +12,7 @@ locals {
       ? local.validate_sm_region_msg
   : ""))
 
-  sm_guid    = var.existing_sm_instance_guid == null ? ibm_resource_instance.secrets_manager[0].guid : var.existing_sm_instance_guid
+  sm_guid    = var.existing_sm_instance_guid == null ? module.secrets_manager.secrets_manager_guid : var.existing_sm_instance_guid
   sm_region  = var.existing_sm_instance_region == null ? var.region : var.existing_sm_instance_region
   sm_acct_id = var.existing_sm_instance_guid == null ? module.iam_secrets_engine[0].acct_secret_group_id : module.secrets_manager_group_acct[0].secret_group_id
 }
@@ -35,18 +35,15 @@ module "resource_group" {
 
 ## IAM user policy, SM instance, Service ID for IAM engine, IAM service ID policies, associated Service ID API key stored in a secret object in account level secret-group and IAM engine configuration
 
-resource "ibm_resource_instance" "secrets_manager" {
-  count             = var.existing_sm_instance_guid == null ? 1 : 0
-  name              = "${var.prefix}-sm"
-  service           = "secrets-manager"
-  plan              = var.sm_service_plan
-  location          = var.region
-  tags              = var.resource_tags
-  resource_group_id = module.resource_group.resource_group_id
-
-  timeouts {
-    create = "30m" # Extending provisioning time to 30 minutes
-  }
+module "secrets_manager" {
+  source               = "terraform-ibm-modules/secrets-manager/ibm"
+  version              = "1.1.0"
+  resource_group_id    = module.resource_group.resource_group_id
+  region               = var.region
+  secrets_manager_name = "${var.prefix}-secrets-manager"
+  sm_service_plan      = "trial"
+  service_endpoints    = "public-and-private"
+  sm_tags              = var.resource_tags
 }
 
 # Configure instance with IAM engine
@@ -55,7 +52,7 @@ module "iam_secrets_engine" {
   source               = "terraform-ibm-modules/secrets-manager-iam-engine/ibm"
   version              = "1.0.3"
   region               = var.region
-  secrets_manager_guid = ibm_resource_instance.secrets_manager[0].guid
+  secrets_manager_guid = module.secrets_manager.secrets_manager_guid
   iam_engine_name      = "generated_iam_engine"
 }
 

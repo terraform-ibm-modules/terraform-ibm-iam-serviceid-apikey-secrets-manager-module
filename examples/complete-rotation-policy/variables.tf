@@ -9,13 +9,6 @@ variable "ibmcloud_api_key" {
   description = "APIkey that's associated with the account to use, set via environment variable TF_VAR_ibmcloud_api_key or .tfvars file."
   sensitive   = true
 }
-
-variable "sm_service_plan" {
-  type        = string
-  description = "Secrets-Manager Trial plan"
-  default     = "trial"
-}
-
 variable "sm_iam_secret_name" {
   type        = string
   description = "Name of SM IAM secret (dynamic ServiceID API Key) to be created"
