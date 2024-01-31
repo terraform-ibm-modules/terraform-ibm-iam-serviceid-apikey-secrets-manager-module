@@ -8,7 +8,7 @@ End to end example with the complete Secrets-Manager objects lifecycle including
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.3.0, <1.6.0 |
-| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | 1.51.0 |
+| <a name="requirement_ibm"></a> [ibm](#requirement\_ibm) | >= 1.61.0, <2.0.0 |
 
 ### Modules
 
@@ -17,6 +17,7 @@ End to end example with the complete Secrets-Manager objects lifecycle including
 | <a name="module_dynamic_serviceid_apikey1"></a> [dynamic\_serviceid\_apikey1](#module\_dynamic\_serviceid\_apikey1) | ../.. | n/a |
 | <a name="module_iam_secrets_engine"></a> [iam\_secrets\_engine](#module\_iam\_secrets\_engine) | terraform-ibm-modules/secrets-manager-iam-engine/ibm | 1.0.3 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform-ibm-modules/resource-group/ibm | 1.1.4 |
+| <a name="module_secrets_manager"></a> [secrets\_manager](#module\_secrets\_manager) | terraform-ibm-modules/secrets-manager/ibm | 1.1.0 |
 | <a name="module_secrets_manager_group_acct"></a> [secrets\_manager\_group\_acct](#module\_secrets\_manager\_group\_acct) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.1.3 |
 | <a name="module_secrets_manager_group_service"></a> [secrets\_manager\_group\_service](#module\_secrets\_manager\_group\_service) | terraform-ibm-modules/secrets-manager-secret-group/ibm | 1.1.3 |
 
@@ -24,9 +25,8 @@ End to end example with the complete Secrets-Manager objects lifecycle including
 
 | Name | Type |
 |------|------|
-| [ibm_iam_service_id.secret_puller](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.51.0/docs/resources/iam_service_id) | resource |
-| [ibm_iam_service_policy.secret_puller_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.51.0/docs/resources/iam_service_policy) | resource |
-| [ibm_resource_instance.secrets_manager](https://registry.terraform.io/providers/IBM-Cloud/ibm/1.51.0/docs/resources/resource_instance) | resource |
+| [ibm_iam_service_id.secret_puller](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_id) | resource |
+| [ibm_iam_service_policy.secret_puller_policy](https://registry.terraform.io/providers/IBM-Cloud/ibm/latest/docs/resources/iam_service_policy) | resource |
 
 ### Inputs
 
@@ -40,7 +40,6 @@ End to end example with the complete Secrets-Manager objects lifecycle including
 | <a name="input_resource_group"></a> [resource\_group](#input\_resource\_group) | An existing resource group name to use for this example, if unset a new resource group will be created | `string` | `null` | no |
 | <a name="input_resource_tags"></a> [resource\_tags](#input\_resource\_tags) | Optional list of tags to be added to created resources | `list(string)` | `[]` | no |
 | <a name="input_sm_iam_secret_name"></a> [sm\_iam\_secret\_name](#input\_sm\_iam\_secret\_name) | Name of SM IAM secret (dynamic ServiceID API Key) to be created | `string` | `"sm-iam-secret-puller"` | no |
-| <a name="input_sm_service_plan"></a> [sm\_service\_plan](#input\_sm\_service\_plan) | Secrets-Manager Trial plan | `string` | `"trial"` | no |
 
 ### Outputs
 
