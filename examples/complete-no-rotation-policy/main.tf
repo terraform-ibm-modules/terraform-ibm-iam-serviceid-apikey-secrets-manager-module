@@ -37,7 +37,7 @@ module "resource_group" {
 
 module "secrets_manager" {
   source               = "terraform-ibm-modules/secrets-manager/ibm"
-  version              = "1.5.0"
+  version              = "1.12.4"
   resource_group_id    = module.resource_group.resource_group_id
   region               = var.region
   secrets_manager_name = "${var.prefix}-secrets-manager"
@@ -50,7 +50,7 @@ module "secrets_manager" {
 module "iam_secrets_engine" {
   count                = var.existing_sm_instance_guid == null ? 1 : 0
   source               = "terraform-ibm-modules/secrets-manager-iam-engine/ibm"
-  version              = "1.0.4"
+  version              = "1.1.1"
   region               = var.region
   secrets_manager_guid = module.secrets_manager.secrets_manager_guid
   iam_engine_name      = "generated_iam_engine"
@@ -60,7 +60,7 @@ module "iam_secrets_engine" {
 module "secrets_manager_group_acct" {
   count                = var.existing_sm_instance_guid == null ? 0 : 1
   source               = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version              = "1.1.4"
+  version              = "1.2.1"
   region               = local.sm_region
   secrets_manager_guid = local.sm_guid
   #tfsec:ignore:general-secrets-no-plaintext-exposure
@@ -70,7 +70,7 @@ module "secrets_manager_group_acct" {
 
 module "secrets_manager_group_service" {
   source               = "terraform-ibm-modules/secrets-manager-secret-group/ibm"
-  version              = "1.1.4"
+  version              = "1.2.1"
   region               = local.sm_region
   secrets_manager_guid = local.sm_guid
   #tfsec:ignore:general-secrets-no-plaintext-exposure
