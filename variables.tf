@@ -40,6 +40,12 @@ variable "sm_iam_secret_api_key_persistence" {
   default     = true
 }
 
+variable "labels" {
+  type        = list(string)
+  description = "Optional list of upto 30 labels to be added to created on the secret"
+  default     = []
+}
+
 variable "region" {
   type        = string
   description = "Region where resources will be created"

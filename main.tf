@@ -25,6 +25,7 @@ resource "ibm_sm_iam_credentials_secret" "sm_iam_credentials_secret" {
   ttl             = var.sm_iam_secret_ttl
   reuse_api_key   = var.sm_iam_secret_api_key_persistence
   endpoint_type   = var.service_endpoints
+  labels          = var.labels
 
   ## This for_each block is NOT a loop to attach to multiple rotation blocks.
   ## This block is only used to conditionally add rotation block depending on var.sm_iam_secret_auto_rotation

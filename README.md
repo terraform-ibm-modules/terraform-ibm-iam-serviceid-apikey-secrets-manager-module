@@ -85,6 +85,7 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_labels"></a> [labels](#input\_labels) | Optional list of upto 30 labels to be added to created on the secret | `list(string)` | `[]` | no |
 | <a name="input_region"></a> [region](#input\_region) | Region where resources will be created | `string` | n/a | yes |
 | <a name="input_secret_group_id"></a> [secret\_group\_id](#input\_secret\_group\_id) | Secret Group ID of secret where IAM Secret will be added to, leave default (null) to add in default secret-group | `string` | `null` | no |
 | <a name="input_secrets_manager_guid"></a> [secrets\_manager\_guid](#input\_secrets\_manager\_guid) | Instance ID of Secrets Manager instance in where secret is stored | `string` | n/a | yes |
