@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
 	"gopkg.in/yaml.v3"
 )
@@ -44,6 +45,10 @@ func TestMain(m *testing.M) {
 }
 
 func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
+
+	// Get the tags
+	tags := common.GetTagsFromTravis()
+
 	options := testhelper.TestOptionsDefaultWithVars(&testhelper.TestOptions{
 		Testing:            t,
 		TerraformDir:       defaultExampleTerraformDir,
@@ -53,6 +58,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		TerraformVars: map[string]interface{}{
 			"existing_sm_instance_guid":   smGuid,
 			"existing_sm_instance_region": smRegion,
+			"resource_tags":               tags,
 		},
 	})
 	return options
