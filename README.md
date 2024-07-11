@@ -85,8 +85,8 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_labels"></a> [labels](#input\_labels) | Optional list of upto 30 labels to be added to created on the secret | `list(string)` | `[]` | no |
-| <a name="input_region"></a> [region](#input\_region) | Region where resources will be created | `string` | n/a | yes |
+| <a name="input_labels"></a> [labels](#input\_labels) | Optional list of upto 30 labels to be created on the secret. Labels can be used to search for secrets in the Secrets Manager instance. | `list(string)` | `[]` | no |
+| <a name="input_region"></a> [region](#input\_region) | The region of the Secrets Manager instance. If not provided defaults to the region defined in the IBM provider configuration. | `string` | n/a | yes |
 | <a name="input_secret_group_id"></a> [secret\_group\_id](#input\_secret\_group\_id) | Secret Group ID of secret where IAM Secret will be added to, leave default (null) to add in default secret-group | `string` | `null` | no |
 | <a name="input_secrets_manager_guid"></a> [secrets\_manager\_guid](#input\_secrets\_manager\_guid) | Instance ID of Secrets Manager instance in where secret is stored | `string` | n/a | yes |
 | <a name="input_service_endpoints"></a> [service\_endpoints](#input\_service\_endpoints) | The service endpoint type to communicate with the provided secrets manager instance. Possible values are `public` or `private` | `string` | `"public"` | no |
