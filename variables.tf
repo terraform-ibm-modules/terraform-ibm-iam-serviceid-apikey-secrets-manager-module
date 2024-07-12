@@ -42,7 +42,7 @@ variable "sm_iam_secret_api_key_persistence" {
 
 variable "labels" {
   type        = list(string)
-  description = "Optional list of upto 30 labels to be created on the secret. Labels can be used to search for secrets in the Secrets Manager instance."
+  description = "Optional list of up to 30 labels to be created on the secret. Labels can be used to search for secrets in the Secrets Manager instance."
   default     = []
 }
 
