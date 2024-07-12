@@ -53,6 +53,7 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		TerraformVars: map[string]interface{}{
 			"existing_sm_instance_guid":   smGuid,
 			"existing_sm_instance_region": smRegion,
+			"resource_tags":               []string{prefix},
 		},
 	})
 	return options

@@ -40,9 +40,15 @@ variable "sm_iam_secret_api_key_persistence" {
   default     = true
 }
 
+variable "labels" {
+  type        = list(string)
+  description = "Optional list of up to 30 labels to be created on the secret. Labels can be used to search for secrets in the Secrets Manager instance."
+  default     = []
+}
+
 variable "region" {
   type        = string
-  description = "Region where resources will be created"
+  description = "The region of the Secrets Manager instance. If not provided defaults to the region defined in the IBM provider configuration."
 }
 
 variable "service_endpoints" {
