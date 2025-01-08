@@ -6,8 +6,9 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/common"
 	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testhelper"
-	"gopkg.in/yaml.v3"
+	"github.com/terraform-ibm-modules/ibmcloud-terratest-wrapper/testschematic"
 )
 
 // Use existing resource group
@@ -16,30 +17,17 @@ const defaultExampleTerraformDir = "examples/complete-rotation-policy"
 
 const yamlLocation = "../common-dev-assets/common-go-assets/common-permanent-resources.yaml"
 
-type Config struct {
-	SmGuid   string `yaml:"secretsManagerGuid"`
-	SmRegion string `yaml:"secretsManagerRegion"`
-}
+const bestRegionYAMLPath = "../common-dev-assets/common-go-assets/cloudinfo-region-secmgr-prefs.yaml"
 
-var smGuid string
-var smRegion string
+var permanentResources map[string]interface{}
 
 func TestMain(m *testing.M) {
-	// Read the YAML file contents
-	data, err := os.ReadFile(yamlLocation)
+	var err error
+	permanentResources, err = common.LoadMapFromYaml(yamlLocation)
 	if err != nil {
 		log.Fatal(err)
 	}
-	// Create a struct to hold the YAML data
-	var config Config
-	// Unmarshal the YAML data into the struct
-	err = yaml.Unmarshal(data, &config)
-	if err != nil {
-		log.Fatal(err)
-	}
-	// Parse the SM guid and region from data
-	smGuid = config.SmGuid
-	smRegion = config.SmRegion
+
 	os.Exit(m.Run())
 }
 
@@ -51,8 +39,8 @@ func setupOptions(t *testing.T, prefix string) *testhelper.TestOptions {
 		ResourceGroup:      resourceGroup,
 		BestRegionYAMLPath: "../common-dev-assets/common-go-assets/cloudinfo-region-secmgr-prefs.yaml",
 		TerraformVars: map[string]interface{}{
-			"existing_sm_instance_guid":   smGuid,
-			"existing_sm_instance_region": smRegion,
+			"existing_sm_instance_guid":   permanentResources["secretsManagerGuid"],
+			"existing_sm_instance_region": permanentResources["secretsManagerRegion"],
 			"resource_tags":               []string{prefix},
 		},
 	})
@@ -77,4 +65,37 @@ func TestRunUpgradeExample(t *testing.T) {
 		assert.Nil(t, err, "This should not have errored")
 		assert.NotNil(t, output, "Expected some output")
 	}
+}
+
+func TestPrivateInSchematics(t *testing.T) {
+	t.Parallel()
+
+	var privDir = "examples/complete-no-rotation-policy"
+
+	options := testschematic.TestSchematicOptionsDefault(&testschematic.TestSchematicOptions{
+		Testing: t,
+		Prefix:  "iam-svcid-apikey-sm-priv",
+		TarIncludePatterns: []string{
+			"*.tf",
+			privDir + "/*.tf",
+		},
+		ResourceGroup:          resourceGroup,
+		TemplateFolder:         privDir,
+		Tags:                   []string{"test-schematic"},
+		DeleteWorkspaceOnFail:  false,
+		WaitJobCompleteMinutes: 80,
+		BestRegionYAMLPath:     bestRegionYAMLPath,
+	})
+
+	options.TerraformVars = []testschematic.TestSchematicTerraformVar{
+		{Name: "ibmcloud_api_key", Value: options.RequiredEnvironmentVars["TF_VAR_ibmcloud_api_key"], DataType: "string", Secure: true},
+		{Name: "resource_tags", Value: options.Tags, DataType: "list(string)"},
+		{Name: "region", Value: options.Region, DataType: "string"},
+		{Name: "prefix", Value: options.Prefix, DataType: "string"},
+		{Name: "existing_sm_instance_crn", Value: permanentResources["privateOnlySecMgrCRN"], DataType: "string"},
+		{Name: "existing_sm_instance_region", Value: permanentResources["privateOnlySecMgrRegion"], DataType: "string"},
+	}
+
+	err := options.RunSchematicTest()
+	assert.Nil(t, err, "This should not have errored")
 }
