@@ -34,9 +34,9 @@ variable "resource_tags" {
   default     = []
 }
 
-variable "existing_sm_instance_guid" {
+variable "existing_sm_instance_crn" {
   type        = string
-  description = "Existing Secrets Manager GUID. If not provided an new instance will be provisioned"
+  description = "Existing Secrets Manager CRN. If not provided a new instance will be provisioned"
   default     = null
 }
 
